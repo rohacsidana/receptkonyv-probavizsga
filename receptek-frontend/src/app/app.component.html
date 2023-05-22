@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Receptek</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Receptkönyv</h1>
+      <label for="cars">Válasszon egy kategóriát:</label>
+
+      <select
+        name="katSelect"
+        id="katSelect"
+        #katSelect
+        (change)="receptSzures(+katSelect.value)"
+      >
+        <option value="-1" id="0">Összes</option>
+        <option value="{{ kat.id }}" *ngFor="let kat of this.kategoriaData">
+          {{ kat.nev }}
+        </option></select
+      ><br />
+      <!-- <button class="btn btn-success" (click)="receptSzures(+katSelect.value)">
+        Szűrés
+      </button> -->
+
+      <div class="table-responsive">
+        <table class="table">
+          <tr>
+            <th>Név</th>
+            <th>Kategória</th>
+            <th>Leírás</th>
+          </tr>
+          <tr
+            *ngFor="let recept of this.receptekToShow"
+            style="cursor: pointer"
+            (click)="this.receptKivalaszt(recept)"
+          >
+            <td>{{ recept.nev }}</td>
+            <td>{{ recept.kat.nev }}</td>
+            <td style="padding: 25px">{{ recept.leiras }}</td>
+          </tr>
+        </table>
+      </div>
+      <div *ngIf="this.selectedRecept" class="singleRecept">
+        <h2>{{ this.selectedRecept.nev }}</h2>
+        <p>Kategória: {{ this.selectedRecept.kat.nev }}</p>
+        <p class='singleReceptLeiras'>Leírás: {{ this.selectedRecept.leiras }}</p>
+        <img
+          src="{{ this.selectedRecept.kepEleresiUt }}"
+          alt="{{ this.selectedRecept.nev }}"
+        />
+      </div>
+    </div>
+  </body>
+</html>
